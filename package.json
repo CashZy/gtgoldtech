@@ -1,0 +1,44 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.6.6",
+    "@sidebase/nuxt-session": "^0.2.7",
+    "@types/node": "^18",
+    "@types/nodejs-captcha": "^0.0.0",
+    "@vant/nuxt": "^1.0.1",
+    "nuxt": "^3.4.2",
+    "prisma": "^4.13.0",
+    "sass": "^1.62.0",
+    "vant": "^4.2.0"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.1.0",
+    "@ckeditor/ckeditor5-vue": "^5.1.0",
+    "@prisma/client": "^4.13.0",
+    "@vonage/server-sdk": "^3.4.0",
+    "@vuelidate/core": "^2.0.2",
+    "@vuelidate/validators": "^2.0.2",
+    "@vueuse/core": "^10.1.0",
+    "axios": "^1.4.0",
+    "bcryptjs": "^2.4.3",
+    "clipboard": "^2.0.11",
+    "date-fns": "^2.30.0",
+    "formidable": "^2.1.1",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "nodejs-captcha": "^0.0.6",
+    "nodejs-unique-numeric-id-generator": "^1.1.0",
+    "svg-captcha": "^1.4.0",
+    "sweetalert2": "^11.7.5",
+    "vee-validate": "^4.9.5",
+    "yup": "^1.2.0"
+  }
+}
