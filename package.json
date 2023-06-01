@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
+    "start": "vue-cli-service serve"
+
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
