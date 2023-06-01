@@ -2,8 +2,8 @@
   "name": "nuxt-app",
   "private": true,
   "scripts": {
-     "build": "vue-cli-service build",
-    "start": "vue-cli-service serve",
+    "build": "nuxt build",
+    "start": "nuxt dev",
 
     "dev": "nuxt dev",
     "generate": "nuxt generate",
