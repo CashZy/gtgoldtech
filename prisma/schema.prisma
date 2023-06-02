@@ -26,6 +26,7 @@ model User {
   balance      Decimal
   team         team[]
   myteam       myteam[]
+  earnings     earnings[]
 }
 
 model News {
@@ -144,4 +145,12 @@ model myteam {
   userId    Int
   invitedbyCode    String
   level     String
+}
+
+model earnings {
+  id        Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  amount    Float
+  createdAt DateTime @default(now())
 }

@@ -19,11 +19,11 @@
         <div class="grid grid-cols-2 bg-primary p-2 rounded-lg text-white">
           <div class="flex flex-col items-center justify-center">
             <p class="text-sm">Balance Wallet</p>
-            <p class="text-xs">{{ user?.balance }}</p>
+            <p class="text-xs">{{ rechargeWallet }}</p>
           </div>
           <div class="flex flex-col items-center justify-center">
             <p class="text-sm">Recharge Wallet</p>
-            <p class="text-xs">0.00</p>
+            <p class="text-xs">{{ user?.balance }}</p>
           </div>
         </div>
 
@@ -45,7 +45,9 @@
 
         <div class="mx-5">
           <van-button
-            @click="submit(user?.balance, product?.price, user?.id)"
+            @click="
+              submit(user?.balance, rechargeWallet, product?.price, user?.id)
+            "
             class="!w-full !bg-[#013d7d] !text-white !rounded-lg"
             >Confirm</van-button
           >
@@ -72,9 +74,31 @@ export default {
   setup(props) {
     const { user } = useAuth();
     const show = ref(false);
+    const earningToday = ref("0.00");
+    const team = ref([]);
+    const summaryAmount = computed(() => {
+      return team.value.reduce((total, item) => total + item.amount, 0);
+    });
+    const rechargeWallet = computed(() => {
+      return parseFloat(earningToday.value) + parseFloat(summaryAmount.value);
+    });
 
-    const submit = async (balance, price, userIId) => {
-      if (balance >= price) {
+    onMounted(async () => {
+      try {
+        const response = await Axios.get("/api/getdailyearning/");
+        // console.log("Response:", response.data);
+        earningToday.value = response.data;
+
+        const res = await Axios.get("/api/team/");
+        team.value = res.data;
+        console.log("team Response:", team);
+      } catch (error) {
+        console.error("Error during request:", error);
+      }
+    });
+
+    const submit = async (balance, rechargeWallet, price, userIId) => {
+      if (balance >= price || rechargeWallet >= price) {
         v.value.$validate();
         if (!v.value.$error) {
           const formData = new FormData();
@@ -162,6 +186,10 @@ export default {
       couponId,
       loading,
       router,
+      earningToday,
+      team,
+      summaryAmount,
+      rechargeWallet,
     };
   },
 };

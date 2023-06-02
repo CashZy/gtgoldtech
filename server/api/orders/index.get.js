@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
         // Include the related coupon field
       },
     });
-    console.log("orderss", orders);
+    // console.log("orderss", orders);
     return orders;
   } catch (e) {
     return createError({ statusCode: e.code, statusMessage: e.message });

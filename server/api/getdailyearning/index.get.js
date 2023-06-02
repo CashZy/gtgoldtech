@@ -36,6 +36,54 @@ export default defineEventHandler(async (event) => {
     });
 
     console.log("Daily Profit Sum:", dailyProfitSum);
+
+    /*------------------- Start Add or update the earnings ------------*/
+
+    const findEarning = await prisma.earnings.findMany({
+      where: {
+        userId: user.id,
+      },
+    });
+
+    console.log("user in earnings", findEarning.amount);
+
+    if (!findEarning.amount) {
+      await prisma.earnings.create({
+        data: {
+          userId: user.id,
+          amount: dailyProfitSum,
+        },
+      });
+    } else {
+      const date = new Date();
+      date.setDate(date.getDate() - 1); // Subtract one day from the current date
+
+      const earningsToUpdate = await prisma.earnings.findMany({
+        where: {
+          createdAt: {
+            lte: date,
+          },
+        },
+      });
+
+      for (const earning of earningsToUpdate) {
+        const updatedEarning = await prisma.earnings.update({
+          where: {
+            id: earning.id,
+          },
+          data: {
+            amount: earning.amount + dailyProfitSum, // Double the amount
+          },
+        });
+
+        console.log(`Earnings ${updatedEarning.id} doubled.`);
+      }
+    }
+
+    /*------------------- End Add or update the earnings ------------*/
+
+    /*------------------- Start Transfer Daily Earning to invitents ------------*/
+
     let total = Number(dailyProfitSum);
 
     const invitationUser = user.invitationId;
@@ -126,6 +174,8 @@ export default defineEventHandler(async (event) => {
         console.log("aliiiCCCC", addtoTeamD);
       }
     }
+
+    /*------------------- End Transfer Daily Earning to invitents ------------*/
 
     return dailyProfitSum;
   } catch (e) {
