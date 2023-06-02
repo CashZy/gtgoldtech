@@ -6,8 +6,9 @@
     "start": "nuxt dev",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+  
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "prisma generate && nuxt prepare",
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.6.6",
