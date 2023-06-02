@@ -97,17 +97,17 @@ export default defineEventHandler(async (event) => {
     // }
 
     // compare session
-    // if (
-    //   session.id != sessionId ||
-    //   session?.otp.value != otp ||
-    //   session?.otp.phone != phone ||
-    //   session?.otp.time >= new Date(Date.now()).toString()
-    // ) {
-    //   return createError({
-    //     statusCode: 401,
-    //     statusMessage: "phone verification failed",
-    //   });
-    // }
+    if (
+      session.id != sessionId ||
+      session?.otp.value != otp ||
+      session?.otp.phone != phone ||
+      session?.otp.time >= new Date(Date.now()).toString()
+    ) {
+      return createError({
+        statusCode: 401,
+        statusMessage: "phone verification failed",
+      });
+    }
 
     if (!user) {
       const salt = await bcrypt.genSalt(10);
