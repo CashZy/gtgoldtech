@@ -36,12 +36,12 @@ export default defineEventHandler(async (event) => {
     }
 
     // compare valid code
-//     if (code != session.validCode) {
-//       return createError({
-//         statusCode: 401,
-//         statusMessage: "valid code is Wrong",
-//       });
-//     }
+    if (code != session.validCode) {
+      return createError({
+        statusCode: 401,
+        statusMessage: "valid code is Wrong",
+      });
+    }
 
     // compare password
     const isMatch = await bcrypt.compare(password, user.password);
