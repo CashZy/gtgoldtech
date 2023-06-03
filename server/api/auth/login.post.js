@@ -30,18 +30,18 @@ export default defineEventHandler(async (event) => {
       // console.log(">>>>>>>", userOrders);
     }
 
-    // compare session
-    if (session.id != sessionId) {
-      return createError({ statusCode: 401, statusMessage: "session expired" });
-    }
+//     // compare session
+//     if (session.id != sessionId) {
+//       return createError({ statusCode: 401, statusMessage: "session expired" });
+//     }
 
-    // compare valid code
-    if (code != session.validCode) {
-      return createError({
-        statusCode: 401,
-        statusMessage: "valid code is Wrong",
-      });
-    }
+//     // compare valid code
+//     if (code != session.validCode) {
+//       return createError({
+//         statusCode: 401,
+//         statusMessage: "valid code is Wrong",
+//       });
+//     }
 
     // compare password
     const isMatch = await bcrypt.compare(password, user.password);
