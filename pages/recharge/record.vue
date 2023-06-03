@@ -14,16 +14,24 @@
         </thead>
         <tbody>
           <tr v-for="(deposit, index) in deposits" :key="index">
-            <td class="text-center py-3 border-b border-secondary border-opacity-70 text-sm">
-              {{ moment(deposit.createdAt).format('YYYY-MM-DD hh:mm:ss A') }}
+            <td
+              class="text-center py-3 border-b border-secondary border-opacity-70 text-sm"
+            >
+              {{ moment(deposit.createdAt).format("YYYY-MM-DD hh:mm:ss A") }}
             </td>
-            <td class="text-center py-3 border-b border-secondary border-opacity-70 text-sm">
+            <td
+              class="text-center py-3 border-b border-secondary border-opacity-70 text-sm"
+            >
               {{ deposit.balance }}
             </td>
-            <td class="text-center py-3 border-b border-secondary border-opacity-70 text-sm">
+            <td
+              class="text-center py-3 border-b border-secondary border-opacity-70 text-sm"
+            >
               {{ deposit.status ? "Completed" : "Waiting Payment" }}
             </td>
-            <td class="text-center py-3 border-b border-secondary border-opacity-70 text-sm">
+            <td
+              class="text-center py-3 border-b border-secondary border-opacity-70 text-sm"
+            >
               <van-button
                 is-link
                 :to="`/payinfo/${deposit.id}`"
@@ -35,7 +43,12 @@
           </tr>
         </tbody>
       </table>
-      <p v-if="deposits.length === 0" class="my-3 text-sm text-white text-center">No More</p>
+      <p
+        v-if="deposits.length === 0"
+        class="my-3 text-sm text-white text-center"
+      >
+        No More
+      </p>
     </div>
   </div>
 </template>
@@ -44,17 +57,20 @@
 import PageHeader from "~/components/pages/PageHeader.vue";
 import { ref, onMounted } from "vue";
 import Axios from "~/utils/axios";
-import moment from 'moment';
+import moment from "moment";
+import useAuth from "~/composables/auth/useAuth";
 
+const { user } = useAuth();
 const deposits = ref([]);
 const loading = ref(false);
 
 const getDeposits = async () => {
   try {
     loading.value = true;
-    const res = await Axios({ url: "/api/deposit" });
+    const res = await Axios({ url: `/api/deposit/${user.value.id}` });
     deposits.value = res.data;
     loading.value = false;
+    console.log("|||||||||||||", user.value.id);
   } catch (e) {
     loading.value = false;
   }

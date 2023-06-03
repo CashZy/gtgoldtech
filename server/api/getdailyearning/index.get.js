@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
       dailyProfitSum += productDailyProfit;
     });
 
-    console.log("Daily Profit Sum:", dailyProfitSum);
+    // console.log("Daily Profit Sum:", dailyProfitSum);
 
     /*------------------- Start Add or update the earnings ------------*/
 
@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    console.log("user in earnings", findEarning.amount);
+    // console.log("user in earnings", findEarning.amount);
 
     if (!findEarning.amount) {
       await prisma.earnings.create({
@@ -110,7 +110,7 @@ export default defineEventHandler(async (event) => {
         },
       });
 
-      console.log("aliiiBBBB", addtoTeamB);
+      // console.log("aliiiBBBB", addtoTeamB);
 
       const findBID = await prisma.user.findUnique({
         where: {
@@ -140,7 +140,7 @@ export default defineEventHandler(async (event) => {
           },
         });
 
-        console.log("aliiiCCCC", addtoTeamC);
+        // console.log("aliiiCCCC", addtoTeamC);
       }
 
       const findDID = await prisma.user.findUnique({
@@ -171,7 +171,7 @@ export default defineEventHandler(async (event) => {
           },
         });
 
-        console.log("aliiiCCCC", addtoTeamD);
+        // console.log("aliiiCCCC", addtoTeamD);
       }
     }
 

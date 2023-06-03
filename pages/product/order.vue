@@ -3,7 +3,9 @@
     <PageHeader title="My Projects" />
 
     <div class="p-5 overflow-y-auto h-[80vh]">
-      <p class="text-white text-center text-lg">Total: ₹{{ totalAmount.toFixed(2) }}</p>
+      <p class="text-white text-center text-lg">
+        Total: ₹{{ totalAmount.toFixed(2) }}
+      </p>
       <table class="w-full my-3">
         <thead>
           <tr>
@@ -15,22 +17,30 @@
         </thead>
         <tfoot>
           <tr v-for="(p, i) in filteredOrders" :key="i">
-            <td class="text-center border-b border-secondary border-opacity-50 py-2 text-xs">
+            <td
+              class="text-center border-b border-secondary border-opacity-50 py-2 text-xs"
+            >
               <img
                 v-if="p.product.image"
-                :src="`/uploads/users/${p.product.image}`"
+                :src="`/uploads/products/${p.product.image}`"
                 :style="{ width: '50px', height: '50px' }"
                 alt=""
               />
               <van-image v-else width="50px" height="50px" />
             </td>
-            <td class="text-center border-b border-secondary border-opacity-50 py-2 text-xs">
+            <td
+              class="text-center border-b border-secondary border-opacity-50 py-2 text-xs"
+            >
               {{ p.product.name }}
             </td>
-            <td class="text-center border-b border-secondary border-opacity-50 py-2 text-xs">
+            <td
+              class="text-center border-b border-secondary border-opacity-50 py-2 text-xs"
+            >
               {{ p.totalPrice }}
             </td>
-            <td class="text-center border-b border-secondary border-opacity-50 py-2 text-xs">
+            <td
+              class="text-center border-b border-secondary border-opacity-50 py-2 text-xs"
+            >
               {{ p.quantity }}
             </td>
           </tr>
@@ -69,7 +79,10 @@ export default {
     });
 
     const totalAmount = computed(() => {
-      return filteredOrders.value.reduce((total, order) => total + order.totalPrice, 0);
+      return filteredOrders.value.reduce(
+        (total, order) => total + order.totalPrice,
+        0
+      );
     });
 
     return {

@@ -6,7 +6,7 @@
       <NuxtLink
         v-for="(link, i) in links"
         :key="i"
-        class="flex flex-col items-center justify-center space-y-1"
+        class="flex flex-col items-center justify-center space-y-1 text-center"
         :to="link.route"
       >
         <img :src="link.image" :style="{ width: '34px' }" alt="" />

@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
     const { fields, files } = response;
     console.log("first", fields);
 
-    const orders = await prisma.order.findUnique({
+    const orders = await prisma.product.findUnique({
       where: {
         id: Number(fields.productId),
       },
@@ -37,8 +37,7 @@ export default defineEventHandler(async (event) => {
 
     // // create orders
     if (orders && getuser) {
-      const updatedBalance =
-        Number(getuser.balance) - Number(orders.totalPrice);
+      const updatedBalance = Number(getuser.balance) - Number(orders.price);
       const updateBalance = await prisma.user.update({
         where: {
           id: Number(fields.userIId),
@@ -51,7 +50,7 @@ export default defineEventHandler(async (event) => {
       if (updateBalance) {
         console.log("balace after order:", updateBalance);
       }
-      return 500;
+      // return 500;
     }
     return { getuser };
   } catch (e) {

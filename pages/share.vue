@@ -12,7 +12,7 @@
 
       <div class="flex items-center justify-center my-3">
         <div class="p-2 border border-white rounded text-center text-white">
-          {{ `https://www.doleco.land/h5/register/` + user?.code }}
+          {{ `https://dolevip.shop/register/` + user?.code }}
         </div>
       </div>
 

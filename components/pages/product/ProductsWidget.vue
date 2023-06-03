@@ -1,19 +1,24 @@
 <template>
   <div class="bg-[#00000066] p-2 rounded-lg text-white space-y-1">
     <van-image
-        v-if="product.image"
-        :src="`/uploads/products/${product.image}`"
-        class="rounded-lg"
-        :style="{ height: '200px', width: '200px' }"
+      v-if="product.image"
+      :src="`/uploads/products/${product.image}`"
+      class="rounded-lg"
+      :style="{ height: '250px', width: '100%' }"
     />
     <h2 class="font-medium">{{ product.title }}</h2>
-    <p class="text-xs">Price: <span class="text-primary">₹{{ product.price }}.00</span></p>
-    <p class="text-xs">Term: <span class="text-primary">{{ product.days }} days</span></p>
+    <p class="text-xs">
+      Price: <span class="text-primary">₹{{ product.price }}.00</span>
+    </p>
+    <p class="text-xs">
+      Term: <span class="text-primary">{{ product.days }} days</span>
+    </p>
     <p class="text-xs">
       Daily Income: <span class="text-primary">₹{{ product.dayProfit }}</span>
     </p>
     <p class="text-xs">
-      Total Revenue: <span class="text-primary">₹{{ product.totalRevenue }}</span>
+      Total Revenue:
+      <span class="text-primary">₹{{ product.totalRevenue }}</span>
     </p>
 
     <div class="h-3 w-full bg-white rounded-full !my-2"></div>

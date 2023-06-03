@@ -8,10 +8,13 @@
         {{ totalAmount.toFixed(2) }}
       </p>
     </div>
-    <div class="flex flex-col space-y-0.5 items-center justify-center">
+    <div
+      class="flex flex-col space-y-0.5 items-center justify-center overflow-x-auto"
+    >
       <NuxtLink to="/recharge" class="text-sm text-light">
         Recharge Wallet
       </NuxtLink>
+
       <p class="text-primary text-lg font-medium">{{ user?.balance }}</p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
