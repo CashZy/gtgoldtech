@@ -31,9 +31,9 @@ export default defineEventHandler(async (event) => {
     }
 
 //     // compare session
-//     if (session.id != sessionId) {
-//       return createError({ statusCode: 401, statusMessage: "session expired" });
-//     }
+    if (session.id != sessionId) {
+      return createError({ statusCode: 401, statusMessage: "session expired" });
+    }
 
 //     // compare valid code
 //     if (code != session.validCode) {
