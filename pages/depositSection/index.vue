@@ -17,10 +17,10 @@
         </h3>
       </div>
       <div class="flex flex-row items-center justify-center mb-10">
-        <h3 class="text-xl font-semibold mb-3 text-white mr-4">Dolevip@upi</h3>
+        <h3 class="text-xl font-semibold mb-3 text-white mr-4">dolevip@ybl</h3>
         <button
           class="!bg-secondary !text-white font-semibold rounded-lg px-4 py-2"
-          @click="copyText('Dolevip@upi')"
+          @click="copyText('dolevip@ybl')"
         >
           Copy Address
         </button>
@@ -34,7 +34,7 @@
       <van-field
         class="!bg-transparent !border !border-white !rounded-lg placeholder:!text-red-500 mb-4 recharge-amount-field"
         v-model="transactionId"
-        placeholder="Please Enter the Transaction ID"
+        placeholder="Please Enter the 12 Digit [ Transaction Id / UTR No / Ref no ]"
       />
 
       <div class="mx-8 my-5">

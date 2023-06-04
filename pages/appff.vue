@@ -17,8 +17,10 @@
           <div>
             <van-button
               class="!bg-[#0477f9] !border-[#0477f9] !text-white !text-sm !rounded-full !h-7"
-              >Free Installation</van-button
+              @click="downloadApp"
             >
+              Free Installation
+            </van-button>
           </div>
         </div>
       </div>
@@ -125,6 +127,12 @@
 <script setup>
 import logo from "~/assets/images/common/logo.png";
 import stars from "~/assets/images/pages/appff/stars.png";
+
+const downloadApp = () => {
+  const downloadLink =
+    "https://drive.google.com/uc?id=1MJmjrvp8RMY6kikjH0k57TGLKN9lLF3a&export=download&confirm=t&uuid=ffe833db-2ae7-4259-8581-01d675c9c72a";
+  window.location.href = downloadLink;
+};
 
 const information = ref([
   { title: "Seller", value: "" },
