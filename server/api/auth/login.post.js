@@ -29,13 +29,13 @@ export default defineEventHandler(async (event) => {
       });
       // console.log(">>>>>>>", userOrders);
     }
-console.log("23333333333" , user)
-//     // compare session
+    // console.log("23333333333" , user)
+    //     // compare session
     if (session.id != sessionId) {
       return createError({ statusCode: 401, statusMessage: "session expired" });
     }
 
-//     // compare valid code
+    //     // compare valid code
     if (code != session.validCode) {
       return createError({
         statusCode: 401,

@@ -60,7 +60,11 @@
           Next
         </van-button>
       </div>
-      <DepositSection v-if="showDepositSection" :balance="balance" :paymentChannel="paymentChannel" />
+      <DepositSection
+        v-if="showDepositSection"
+        :balance="balance"
+        :paymentChannel="paymentChannel"
+      />
       <h3 class="text-xl font-semibold mb-3">
         New Member Recharge Tutorial Guide:
       </h3>
@@ -75,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import PageHeader from "~/components/pages/PageHeader.vue";
 import currency_icon from "~/assets/images/common/currency-icon.png";
 import recharge_video from "~/assets/videos/2.mp4";
@@ -85,12 +89,12 @@ const showDepositSection = ref(false);
 const balance = ref("");
 const amounts = ref([550, 3350, 7750, 16500]);
 const checked = ref(0);
-const checks = ["Upi--HR", "Ptm-Sun", "Paytm-All", "Upi-Sun"];
-const paymentChannel = ref(""); 
+const checks = ["Online Upi Payment"];
+const paymentChannel = ref("");
 const handleNextClick = () => {
   paymentChannel.value = checks[checked.value]; // Update paymentChannel ref with the selected payment channel
-  console.log('Balance:', balance.value);
-  console.log('Payment Channel:', paymentChannel.value);
+  console.log("Balance:", balance.value);
+  console.log("Payment Channel:", paymentChannel.value);
   showDepositSection.value = true; // Show the deposit section after clicking Next
 };
 </script>

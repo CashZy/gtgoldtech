@@ -3,14 +3,18 @@
     <div
       class="flex flex-col items-center justify-center space-y-1 text-white pt-5"
     >
-      <img
-        :src="profile"
-        :style="{ width: '69px' }"
+      <div
         class="rounded-full"
-        alt=""
-      />
+        style="width: 90px; height: 90px; overflow: hidden"
+      >
+        <img
+          :src="user?.avatar ? `/uploads/users/${user.avatar}` : profile"
+          class="h-full w-full object-cover"
+          alt=""
+        />
+      </div>
       <p class="text-lg">{{ user?.phone }}</p>
-      <p>ID: {{ user?.code }}</p>
+      <p>ID: {{ user?.id }}</p>
     </div>
   </div>
 </template>

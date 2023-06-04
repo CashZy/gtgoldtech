@@ -7,7 +7,7 @@
     />
     <div class="grow overflow-y-auto px-3">
       <div class="my-3 flex items-center space-x-2">
-        <h3 class="font-semibold">Balance: {{ user?.balance }}</h3>
+        <h3 class="font-semibold">Balance: {{ rechargeWallet }}</h3>
         <van-button
           class="!bg-[#ee0a24] !text-white !px-3 !py-1 !border-[#ee0a24] !h-6 !text-xs"
           >All</van-button
@@ -41,7 +41,7 @@
       <div class="mx-5 my-5">
         <van-button
           class="!bg-secondary !text-white !border-secondary !rounded-full !h-12 !w-full !text-lg"
-          @click="handleSubmit(user?.balance, user?.id)"
+          @click="handleSubmit(rechargeWallet, user?.id)"
           >Submit</van-button
         >
       </div>
@@ -70,6 +70,16 @@ export default {
     const password = ref("");
     const bankdetails = ref([]);
     const bank = ref([]);
+    const earningToday = ref("0.00");
+    const team = ref([]);
+
+    const summaryAmount = computed(() => {
+      return team.value.reduce((total, item) => total + item.amount, 0);
+    });
+
+    const rechargeWallet = computed(() => {
+      return parseFloat(earningToday.value) + parseFloat(summaryAmount.value);
+    });
 
     const handleSubmit = async (balance, userId) => {
       if (amount.value && password.value) {
@@ -105,6 +115,14 @@ export default {
 
     onMounted(async () => {
       try {
+        const resp = await Axios.get("/api/getdailyearning/");
+        // console.log("Response:", response.data);
+        earningToday.value = resp.data;
+
+        const res = await Axios.get("/api/team/");
+        team.value = res.data;
+        // console.log("team Response:", team);
+
         const response = await Axios.get("/api/bank/");
         bankdetails.value = response.data;
 
@@ -127,6 +145,10 @@ export default {
       bankdetails,
       handleSubmit,
       bank,
+      earningToday,
+      team,
+      summaryAmount,
+      rechargeWallet,
     };
   },
 };
