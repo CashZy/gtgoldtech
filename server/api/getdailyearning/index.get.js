@@ -38,22 +38,22 @@ export default defineEventHandler(async (event) => {
     // console.log("Daily Profit Sum:", dailyProfitSum);
 
     /*------------------- Start Add or update the earnings ------------*/
-
-    const findEarning = await prisma.earnings.findMany({
+    const findEarning = await prisma.earnings.findFirst({
       where: {
-        userId: user.id,
+        userId: Number(user.id),
       },
     });
 
-    // console.log("user in earnings", findEarning.amount);
+    // console.log("user in earnings", findEarning);
 
-    if (!findEarning.amount) {
+    if (!findEarning) {
       await prisma.earnings.create({
         data: {
-          userId: user.id,
+          userId: Number(user.id),
           amount: dailyProfitSum,
         },
       });
+      console.log("user created");
     } else {
       const date = new Date();
       date.setDate(date.getDate() - 1); // Subtract one day from the current date
@@ -63,6 +63,7 @@ export default defineEventHandler(async (event) => {
           createdAt: {
             lte: date,
           },
+          userId: Number(user.id),
         },
       });
 
@@ -114,7 +115,7 @@ export default defineEventHandler(async (event) => {
 
       const findBID = await prisma.user.findUnique({
         where: {
-          id: invitationUser,
+          id: Number(invitationUser),
         },
       });
       levelBID = findBID?.invitationId;
@@ -145,7 +146,7 @@ export default defineEventHandler(async (event) => {
 
       const findDID = await prisma.user.findUnique({
         where: {
-          id: levelBID,
+          id: Number(levelBID),
         },
       });
       levelDID = findDID?.invitationId;

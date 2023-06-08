@@ -49,10 +49,10 @@
     </van-field>
 
     <van-field
-      v-model="formData.confirmPassword"
-      :error="confirmPassword.$error"
+      v-model="formData.Password"
+      :error="Password.$error"
       type="password"
-      placeholder="Please Confirm Password"
+      placeholder="Please  Password"
     >
       <template #left-icon>
         <van-image :src="lock_icon" class="-mb-2.5" width="40px" />
@@ -90,7 +90,7 @@ const formData = reactive({
   phone: "",
   sms: "",
   password: "",
-  confirmPassword: "",
+  Password: "",
 });
 
 const p = ref("");
@@ -100,12 +100,12 @@ const rules = computed(() => {
     phone: { required },
     sms: { required },
     password: { required },
-    confirmPassword: { required, sameAs: sameAs(formData.password) },
+    Password: { required, sameAs: sameAs(formData.password) },
   };
 });
 
 const v = useVuelidate(rules, formData);
-const { phone, password, sms, confirmPassword } = v.value;
+const { phone, password, sms, Password } = v.value;
 
 const { loading, reset } = useReset();
 const {

@@ -22,7 +22,7 @@
         Balance Wallet
       </NuxtLink>
       <p class="text-primary text-lg font-medium">
-        {{ earningToday + summaryAmount }}
+        {{ totalEarning + summaryAmount }}
       </p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
@@ -31,7 +31,7 @@
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <p class="text-sm text-light">Total Earning</p>
-      <p class="text-primary text-lg font-medium">{{ earningToday }}</p>
+      <p class="text-primary text-lg font-medium">{{ totalEarning }}</p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <p class="text-sm text-light">Team Income</p>
@@ -51,6 +51,8 @@ export default {
   setup() {
     const { user } = useAuth();
     const earningToday = ref("0.00");
+    const totalEarning = ref("0.00");
+
     const team = ref([]);
     const orders = ref([]);
     const summaryAmount = computed(() => {
@@ -63,9 +65,13 @@ export default {
         // console.log("Response:", response.data);
         earningToday.value = response.data;
 
+        const respons = await Axios.get("/api/totalearning/");
+        console.log("Responsetotal:", respons.data);
+        totalEarning.value = respons.data.amount;
+
         const res = await Axios.get("/api/team/");
         team.value = res.data;
-        console.log("team Response:", team);
+        // console.log("team Response:", team);
 
         const resp = await Axios.get("/api/orders/");
         orders.value = resp.data;
@@ -87,6 +93,7 @@ export default {
     return {
       user,
       earningToday,
+      totalEarning,
       team,
       summaryAmount,
       totalAmount,
