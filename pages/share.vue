@@ -57,7 +57,7 @@ import Clipboard from "clipboard";
 const { user } = useAuth();
 const copyToClipboard = () => {
   const clipboard = new Clipboard(".btn-copy", {
-    text: () => `https://www.doleco.land/h5/register/` + user?.value.code,
+    text: () => `https://dolevip.shop/register/` + user?.value.code,
   });
 
   clipboard.on("success", (e) => {

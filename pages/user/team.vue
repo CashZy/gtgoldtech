@@ -43,7 +43,7 @@
       <tbody>
         <tr v-for="(item, index) in filteredOrders" :key="index">
           <!-- <td class="text-center">{{ item.id }}</td> -->
-          <td class="text-center">{{ item.fromId }}</td>
+          <td class="text-center">{{ item.userId }}</td>
           <td class="text-center">{{ item.level }}</td>
           <td class="text-center">{{ item.createdAt }}</td>
         </tr>
@@ -113,19 +113,11 @@ function formatDate(dateString) {
 
 onMounted(async () => {
   try {
-    const response = await Axios.get("/api/team/");
+    const response = await Axios.get("/api/myteam/");
     const orders = response.data;
+    console.log("🚀 ~ file: team.vue:118 ~ onMounted ~ orders:", orders);
 
-    // Filter orders to keep only one order per user
-    const userIds = new Set();
-    filteredOrders.value = [];
-
-    for (const order of orders) {
-      if (!userIds.has(order.fromId)) {
-        userIds.add(order.fromId);
-        filteredOrders.value.push(order);
-      }
-    }
+    filteredOrders.value = orders;
 
     // Format the createdAt property
     filteredOrders.value = filteredOrders.value.map((order) => ({
@@ -133,7 +125,7 @@ onMounted(async () => {
       createdAt: formatDate(order.createdAt),
     }));
 
-    console.log("Filtered orders:", filteredOrders);
+    console.log("Filtered orders:", orders);
   } catch (error) {
     console.error("Error during request:", error);
   }

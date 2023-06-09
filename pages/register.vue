@@ -94,7 +94,7 @@ const formData = reactive({
   sms: "",
   password: "",
   invitation: "",
-  balance: 0.00
+  balance: 0.0,
 });
 
 const rules = {
@@ -132,7 +132,7 @@ const submit = async () => {
       otp: formData.sms,
       sessionId: sessionId.value,
       invitation: formData.invitation,
-      balance: 0.00
+      balance: 0.0,
     });
   } else {
     showToast("please fill form");

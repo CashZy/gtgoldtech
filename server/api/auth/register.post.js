@@ -5,6 +5,9 @@ import ID from "nodejs-unique-numeric-id-generator";
 export default defineEventHandler(async (event) => {
   const session = event.context.session;
   let user = null;
+  let findBID = null;
+  let findCID = null;
+  let findDID = null;
   // const c = captcha();
   const uniqueInvitationCode = ID.generate(new Date().toJSON());
   try {
@@ -46,55 +49,68 @@ export default defineEventHandler(async (event) => {
       isAdmin = true;
     }
 
-    // if (invitation) {
-    //  await prisma.myteam.create({
-    //     data: {
-    //       userId: allusers.length + 1,
-    //       invitedbyCode: invitation,
-    //       level: 'B',
-    //     },
-    //   });
+    /*................... level B ................*/
 
-    //   const findBID = await prisma.user.findUnique({
-    //     where: {
-    //       code: invitation,
-    //     },
-    //   });
-    //   levelBID = findBID?.invitationId;
+    if (invitation) {
+      const allusers = await prisma.user.findMany({});
 
-    //   if (levelBID) {
-    //     const updatedBalanceD = await prisma.user.update({
-    //       where: {
-    //         id: levelBID,
-    //       },
-    //       data: {
-    //         balance: {
-    //           increment: new Prisma.Decimal((5 / 100) * total), // Set the balance field to the sum of existing value and new value
-    //         },
-    //       },
-    //     });
-    //   }
+      findBID = await prisma.user.findUnique({
+        where: {
+          code: invitation,
+        },
+      });
+      const levelBID = findBID?.id;
 
-    //   const findDID = await prisma.user.findUnique({
-    //     where: {
-    //       id: levelBID,
-    //     },
-    //   });
-    //   levelDID = findDID?.invitationId;
+      await prisma.myteam.create({
+        data: {
+          userId: allusers.length + 1,
+          invitedbyId: levelBID,
+          level: "B",
+        },
+      });
+      console.log("B  createddddd");
 
-    //   if (levelDID) {
-    //     const updatedBalanceD = await prisma.user.update({
-    //       where: {
-    //         id: levelDID,
-    //       },
-    //       data: {
-    //         balance: {
-    //           increment: new Prisma.Decimal((2 / 100) * total), // Set the balance field to the sum of existing value and new value
-    //         },
-    //       },
-    //     });
-    //   }
-    // }
+      /*................... level B ................*/
+      /*................... level C ................*/
+
+      if (findBID?.invitationId) {
+        findCID = await prisma.user.findUnique({
+          where: {
+            id: findBID.invitationId,
+          },
+        });
+        const levelCID = findCID?.id;
+
+        await prisma.myteam.create({
+          data: {
+            userId: allusers.length + 1,
+            invitedbyId: levelCID,
+            level: "C",
+          },
+        });
+
+        console.log("C  createddddd");
+      }
+      /*................... level C ................*/
+      /*................... level D ................*/
+      if (findCID?.invitationId) {
+        findDID = await prisma.user.findUnique({
+          where: {
+            id: findCID.invitationId,
+          },
+        });
+        const levelDID = findDID?.id;
+
+        await prisma.myteam.create({
+          data: {
+            userId: allusers.length + 1,
+            invitedbyId: levelDID,
+            level: "D",
+          },
+        });
+        console.log("D  createddddd");
+      }
+    }
 
     // compare session
     // if (
@@ -121,6 +137,7 @@ export default defineEventHandler(async (event) => {
           invitationId: invitationUser ? invitationUser.id : null,
           isAdmin,
           balance: 0.0,
+          totalEarning: 0.0,
         },
       });
     }

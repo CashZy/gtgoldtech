@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
       dailyProfitSum += productDailyProfit;
     });
 
-    // console.log("Daily Profit Sum:", dailyProfitSum);
+    console.log("Daily Profit Sum:", dailyProfitSum);
 
     /*------------------- Start Add or update the earnings ------------*/
     const findEarning = await prisma.earnings.findFirst({
@@ -44,28 +44,34 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    // console.log("user in earnings", findEarning);
+    console.log("user in earnings", findEarning);
 
     if (!findEarning) {
       await prisma.earnings.create({
         data: {
           userId: Number(user.id),
           amount: dailyProfitSum,
+          updatedAt: new Date(),
         },
       });
       console.log("user created");
     } else {
+      console.log("elseeeeeeee");
       const date = new Date();
       date.setDate(date.getDate() - 1); // Subtract one day from the current date
 
       const earningsToUpdate = await prisma.earnings.findMany({
         where: {
-          createdAt: {
+          updatedAt: {
             lte: date,
           },
           userId: Number(user.id),
         },
       });
+      console.log(
+        "🚀 ~ file: index.get.js:70 ~ defineEventHandler ~ earningsToUpdate:",
+        earningsToUpdate
+      );
 
       for (const earning of earningsToUpdate) {
         const updatedEarning = await prisma.earnings.update({

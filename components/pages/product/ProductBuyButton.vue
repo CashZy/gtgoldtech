@@ -124,7 +124,6 @@ export default {
             if (response) {
               // console.log("222222222222" , response)
               try {
-                alert(response.data.productId);
                 await Axios({
                   url: `/api/buyproduct/${response.data.productId}`,
                   method: "PUT",
