@@ -58,24 +58,27 @@ export default defineEventHandler(async (event) => {
             userId: Number(fields.userIId),
           },
         });
-        const updatedBalance =
-          Number(findEarning.amount) - Number(orders.price);
-        console.log(
-          "🚀 ~ file: [id].put.js:62 ~ defineEventHandler ~ updatedBalance:",
-          updatedBalance
-        );
-
-        const updateBal = await prisma.earnings.update({
-          where: {
-            id: findEarning.id,
-          },
-          data: {
-            amount: parseFloat(updatedBalance),
-          },
-        });
-
-        if (updateBal) {
-          console.log("balace after order:", updateBal);
+        if(findEarning.amount >= orders.price){
+          const updatedBalance =Number(findEarning.amount) - Number(orders.price);
+          console.log(
+            "🚀 ~ file: [id].put.js:62 ~ defineEventHandler ~ updatedBalance:",
+            updatedBalance
+          );
+          const updateBal = await prisma.earnings.update({
+            where: {
+              id: findEarning.id,
+            },
+            data: {
+              amount: parseFloat(updatedBalance),
+            },
+          });
+  
+          if (updateBal) {
+            console.log("balace after order:", updateBal);
+          }
+        }
+        else{
+          return 500
         }
       }
     }

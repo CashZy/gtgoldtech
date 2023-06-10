@@ -69,7 +69,7 @@ export default {
 
         const respons = await Axios.get("/api/totalearning/");
         totalEarning.value = respons.data.amount;
-        // console.log("33333333333", respons.data.amount )
+       
         const res = await Axios.get("/api/team/");
         team.value = res.data;
 
@@ -96,9 +96,7 @@ export default {
     });
 
     const totalBalance = computed(() => {
-     
       return parseFloat(totalEarning.value) + parseFloat(summaryAmount.value);
-      
     });
 
     return {

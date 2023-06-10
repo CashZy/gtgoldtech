@@ -19,7 +19,7 @@
         <div class="grid grid-cols-2 bg-primary p-2 rounded-lg text-white">
           <div class="flex flex-col items-center justify-center">
             <p class="text-sm">Balance Wallet</p>
-            <p class="text-xs">{{ rechargeWallet }}</p>
+            <p class="text-xs">{{ totalEarning }}</p>
           </div>
           <div class="flex flex-col items-center justify-center">
             <p class="text-sm">Recharge Wallet</p>
@@ -46,7 +46,7 @@
         <div class="mx-5">
           <van-button
           @click.prevent="
-    submit(user?.balance, rechargeWallet, product?.price, user?.id)
+    submit(user?.balance, totalEarning, product?.price, user?.id)
   "
             class="!w-full !bg-[#013d7d] !text-white !rounded-lg"
             >Confirm</van-button
@@ -75,6 +75,7 @@ export default {
     const { user } = useAuth();
     const show = ref(false);
     const earningToday = ref("0.00");
+    const totalEarning = ref("0.00");
     const team = ref([]);
     const summaryAmount = computed(() => {
       return team.value.reduce((total, item) => total + item.amount, 0);
@@ -88,6 +89,9 @@ export default {
         const response = await Axios.get("/api/getdailyearning/");
         // console.log("Response:", response.data);
         earningToday.value = response.data;
+
+        const respons = await Axios.get("/api/totalearning/");
+        totalEarning.value = respons.data.amount;
 
         const res = await Axios.get("/api/team/");
         team.value = res.data;
@@ -189,6 +193,7 @@ export default {
       team,
       summaryAmount,
       rechargeWallet,
+      totalEarning
     };
   },
 };
