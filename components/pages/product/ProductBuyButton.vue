@@ -45,9 +45,9 @@
 
         <div class="mx-5">
           <van-button
-            @click="
-              submit(user?.balance, rechargeWallet, product?.price, user?.id)
-            "
+          @click.prevent="
+    submit(user?.balance, rechargeWallet, product?.price, user?.id)
+  "
             class="!w-full !bg-[#013d7d] !text-white !rounded-lg"
             >Confirm</van-button
           >
@@ -95,7 +95,7 @@ export default {
       } catch (error) {
         console.error("Error during request:", error);
       }
-    });
+    }); 
 
     const submit = async (balance, rechargeWallet, price, userIId) => {
       if (balance >= price || rechargeWallet >= price) {
@@ -117,7 +117,7 @@ export default {
               data: formData,
               headers: {
                 "Content-Type": "multipart/formdata",
-              },
+              }, 
             });
             loading.value = false;
             showSuccessToast("Order Created");
@@ -137,7 +137,7 @@ export default {
               }
             }
 
-            router.push("/product/order");
+            router.push({ path: "/product/order", replace: true });
           } catch (e) {
             loading.value = false;
             showFailToast(e.response?.data?.message || e.message || e);

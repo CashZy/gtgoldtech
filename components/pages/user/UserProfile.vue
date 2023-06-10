@@ -13,14 +13,14 @@
           alt=""
         />
       </div>
-      <p class="text-lg">{{ user?.phone }}</p>
+      <p class="text-lg">PHONE: {{ user?.phone }}</p>
       <p>ID: {{ user?.id }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import profile from "~/assets/images/common/profile.jpeg";
+import profile from "~/assets/images/common/profile3.svg";
 import useAuth from "~/composables/auth/useAuth";
 const { user } = useAuth();
 

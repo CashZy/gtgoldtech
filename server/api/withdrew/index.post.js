@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
     const { username, walletId, paymentChannel } = fields;
     const amount = parseFloat(fields.amount); // Parse the amount as float
-    console.log("withdrew12:", fields);
+    // console.log("withdrew12:", fields);
     const withdrew = await prisma.withdrew.create({
       data: {
         userId: user.id,

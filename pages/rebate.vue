@@ -67,7 +67,8 @@ export default {
 
     onMounted(async () => {
       try {
-        const response = await Axios.get("/api/team/");
+        const response = await Axios.get("/api/team");
+        // console.log("3222222333" , response.data)
         team.value = response.data.map((item) => ({
           ...item,
           createdAt: formatDate(item.createdAt),

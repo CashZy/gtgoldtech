@@ -15,15 +15,15 @@
         Recharge Wallet
       </NuxtLink>
 
-      <p class="text-primary text-lg font-medium">{{ user?.balance }}</p>
+      <p class="text-primary text-lg font-medium">{{ rechargebalace }}</p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <NuxtLink to="/withdraws" class="text-sm text-light">
         Balance Wallet
       </NuxtLink>
       <p class="text-primary text-lg font-medium">
-        {{ totalEarning + summaryAmount }}
-      </p>
+  {{ totalBalance.toFixed(2) }}
+</p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <p class="text-sm text-light">Earnings Today</p>
@@ -45,7 +45,7 @@
 <script>
 import useAuth from "../../../composables/auth/useAuth";
 import Axios from "~/utils/axios";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 export default {
   setup() {
@@ -55,6 +55,9 @@ export default {
 
     const team = ref([]);
     const orders = ref([]);
+    const rechargebalace = ref("0.00")
+
+    
     const summaryAmount = computed(() => {
       return team.value.reduce((total, item) => total + item.amount, 0);
     });
@@ -62,16 +65,17 @@ export default {
     onMounted(async () => {
       try {
         const response = await Axios.get("/api/getdailyearning/");
-        // console.log("Response:", response.data);
         earningToday.value = response.data;
 
         const respons = await Axios.get("/api/totalearning/");
-        console.log("Responsetotal:", respons.data);
         totalEarning.value = respons.data.amount;
-
+        // console.log("33333333333", respons.data.amount )
         const res = await Axios.get("/api/team/");
         team.value = res.data;
-        // console.log("team Response:", team);
+
+        const res_charge = await Axios.get("/api/auth/user");
+        rechargebalace.value = res_charge.data.user.balance;
+        // console.log("000000000000111111" , res_charge.data.user.balance)
 
         const resp = await Axios.get("/api/orders/");
         orders.value = resp.data;
@@ -79,6 +83,7 @@ export default {
         console.error("Error during request:", error);
       }
     });
+
     const filteredOrders = computed(() => {
       return orders.value.filter((order) => order.userId === user.value.id);
     });
@@ -90,6 +95,12 @@ export default {
       );
     });
 
+    const totalBalance = computed(() => {
+     
+      return parseFloat(totalEarning.value) + parseFloat(summaryAmount.value);
+      
+    });
+
     return {
       user,
       earningToday,
@@ -97,7 +108,10 @@ export default {
       team,
       summaryAmount,
       totalAmount,
+      totalBalance,
+      rechargebalace
     };
   },
 };
 </script>
+

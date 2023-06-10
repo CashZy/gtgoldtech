@@ -40,23 +40,30 @@ export default defineEventHandler(async (event) => {
           id: Number(id),
         },
       });
-      let existingorder = await prisma.user.findUnique({
+      // let existingorder = await prisma.user.findUnique({
+      //   where: {
+      //     id: Number(fields.userIId),
+      //   },
+      // });
+      const existingorder = await prisma.earnings.findMany({
         where: {
-          id: Number(fields.userIId),
+          userId: Number(fields.userIId),
         },
       });
-      const updatedBalance = existingorder.balance - withdrew.amount;
-      updatebalance = await prisma.user.update({
+      
+      const updatedBalance = existingorder[0].amount - withdrew.amount;
+    
+      updatebalance = await prisma.earnings.update({
         where: {
-          id: Number(fields.userIId),
+          id: existingorder[0].id,
         },
-        data: {
-          balance: updatedBalance,
+        data: { 
+          amount: updatedBalance,
         },
       });
 
       if (updatebalance) {
-        console.log("Updated balance:", updatebalance.balance);
+        console.log("Updated balance:", updatebalance.amount);
       }
 
       return 500;

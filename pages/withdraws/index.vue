@@ -7,7 +7,7 @@
     />
     <div class="grow overflow-y-auto px-3">
       <div class="my-3 flex items-center space-x-2">
-        <h3 class="font-semibold">Balance: {{ rechargeWallet }}</h3>
+        <h3 class="font-semibold">Balance: {{ totalEarning }}</h3>
         <van-button
           class="!bg-[#ee0a24] !text-white !px-3 !py-1 !border-[#ee0a24] !h-6 !text-xs"
           >All</van-button
@@ -41,7 +41,7 @@
       <div class="mx-5 my-5">
         <van-button
           class="!bg-secondary !text-white !border-secondary !rounded-full !h-12 !w-full !text-lg"
-          @click="handleSubmit(rechargeWallet, user?.id)"
+          @click="handleSubmit(totalEarning, user?.id)"
           >Submit</van-button
         >
       </div>
@@ -66,12 +66,14 @@ export default {
   },
   setup() {
     const { user } = useAuth();
+    const router = useRouter();
     const amount = ref("");
     const password = ref("");
     const bankdetails = ref([]);
     const bank = ref([]);
     const earningToday = ref("0.00");
     const team = ref([]);
+    const totalEarning = ref("0.00");
 
     const summaryAmount = computed(() => {
       return team.value.reduce((total, item) => total + item.amount, 0);
@@ -82,9 +84,16 @@ export default {
     });
 
     const handleSubmit = async (balance, userId) => {
-      if (amount.value && password.value) {
-        if (parseFloat(amount.value) > balance) {
+      if (amount.value && password.value && bank.value && bank.value.length > 0) {
+        const enteredAmount = parseFloat(amount.value);
+
+        if (enteredAmount > balance) {
           Swal.fire("Error!", "Insufficient balance for withdrawal..", "error");
+          return;
+        }
+
+        if (enteredAmount < 110) {
+          Swal.fire("Error!", "Entered amount should be greater than 110", "error");
           return;
         }
 
@@ -104,12 +113,19 @@ export default {
             "Your withdrawal will be completed within 24 hours.",
             "success"
           );
+          setTimeout(() => {
+            router.push("/")
+          }, 2000);
         } catch (error) {
           // Handle errors
           console.error(error);
         }
       } else {
-        Swal.fire("Warning!", "Please fill in all the fields", "error");
+        if (!bank.value || bank.value.length === 0) {
+      Swal.fire("Error!", "Bank details not found.", "error");
+    } else {
+      Swal.fire("Warning!", "Please fill in all the fields", "error");
+    }
       }
     };
 
@@ -123,8 +139,12 @@ export default {
         team.value = res.data;
         // console.log("team Response:", team);
 
+        const respons = await Axios.get("/api/totalearning/");
+        totalEarning.value = respons.data.amount;
+
         const response = await Axios.get("/api/bank/");
         bankdetails.value = response.data;
+        
 
         bank.value = [
           { title: "Bank", value: bankdetails.value.data.bank },
@@ -149,6 +169,7 @@ export default {
       team,
       summaryAmount,
       rechargeWallet,
+      totalEarning
     };
   },
 };

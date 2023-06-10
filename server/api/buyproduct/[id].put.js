@@ -5,7 +5,7 @@ import fs from "fs";
 import isAuthenticated from "~/server/utils/isAuthenticated";
 
 export default defineEventHandler(async (event) => {
-  console.log("trigered");
+  // console.log("trigered");
   const { user } = await isAuthenticated(event, true);
   try {
     const params = event.context.params;
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     });
 
     const { fields, files } = response;
-    console.log("first", fields);
+    // console.log("first", fields);
 
     const orders = await prisma.product.findUnique({
       where: {
@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
           console.log("balace after order:", updateBalance);
         }
       } else {
-        console.log("elseeeeee");
+        // console.log("elseeeeee");
         const findEarning = await prisma.earnings.findFirst({
           where: {
             userId: Number(fields.userIId),

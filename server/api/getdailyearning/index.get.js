@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
       });
       console.log("user created");
     } else {
-      console.log("elseeeeeeee");
+      
       const date = new Date();
       date.setDate(date.getDate() - 1); // Subtract one day from the current date
 
