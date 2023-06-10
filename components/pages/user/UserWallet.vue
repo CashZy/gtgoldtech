@@ -15,7 +15,9 @@
         Recharge Wallet
       </NuxtLink>
 
-      <p class="text-primary text-lg font-medium">{{ rechargebalace }}</p>
+      <p class="text-primary text-lg font-medium">{{ parseFloat(rechargebalace).toFixed(4) }}</p>
+
+
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <NuxtLink to="/withdraws" class="text-sm text-light">

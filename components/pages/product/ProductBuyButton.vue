@@ -23,7 +23,7 @@
           </div>
           <div class="flex flex-col items-center justify-center">
             <p class="text-sm">Recharge Wallet</p>
-            <p class="text-xs">{{ user?.balance }}</p>
+            <p class="text-xs">{{ parseFloat(rechargebalace).toFixed(4) }}</p>
           </div>
         </div>
 
@@ -46,7 +46,7 @@
         <div class="mx-5">
           <van-button
           @click.prevent="
-    submit(user?.balance, totalEarning, product?.price, user?.id)
+    submit(parseFloat(rechargebalace).toFixed(4), totalEarning, product?.price, user?.id)
   "
             class="!w-full !bg-[#013d7d] !text-white !rounded-lg"
             >Confirm</van-button
@@ -76,6 +76,7 @@ export default {
     const show = ref(false);
     const earningToday = ref("0.00");
     const totalEarning = ref("0.00");
+    const rechargebalace = ref("0.00");
     const team = ref([]);
     const summaryAmount = computed(() => {
       return team.value.reduce((total, item) => total + item.amount, 0);
@@ -95,6 +96,9 @@ export default {
 
         const res = await Axios.get("/api/team/");
         team.value = res.data;
+
+        const res_charge = await Axios.get("/api/auth/user");
+        rechargebalace.value = res_charge.data.user.balance;
         // console.log("team Response:", team);
       } catch (error) {
         console.error("Error during request:", error);
@@ -139,9 +143,11 @@ export default {
               } catch (error) {
                 console.error("Error during request:", error);
               }
+              router.push({ path: "/product/order", replace: true });
+          
             }
 
-            router.push({ path: "/product/order", replace: true });
+            
           } catch (e) {
             loading.value = false;
             showFailToast(e.response?.data?.message || e.message || e);
@@ -193,7 +199,8 @@ export default {
       team,
       summaryAmount,
       rechargeWallet,
-      totalEarning
+      totalEarning,
+      rechargebalace
     };
   },
 };
