@@ -6,13 +6,13 @@ const vonage = new Vonage({
 })
 
 const from = "Delo"
-const to = "923113245049"
+const to = "919522293670"
 
 
 const sendSMS = async(too, otp) => {
     const text = `Hello! Your OTP code is ${otp}.`
     console.log('to', too)
-    console.log('opt', otp)
+    console.log('otp', otp)
     //:dev: not sending to original because of developer number
     // await vonage.sms.send({to, from, text})
     //     .then(resp => { console.log('Message sent successfully'); console.log(resp); })

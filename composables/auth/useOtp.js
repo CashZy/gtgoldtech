@@ -33,7 +33,8 @@ const useOpt = () => {
       optp.value = data.optp;
       send.value = true;
       sessionId.value = data.sessionId;
-      showSuccessToast("code sent successfully");
+      console.log("0000000000000000000000000"   , optp.value)
+      showSuccessToast("code sent successfully" );
       counter.value = 60;
       interval.value = setInterval(() => {
         counter.value = counter.value - 1;

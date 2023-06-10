@@ -91,7 +91,7 @@ export default {
 
         const res = await Axios.get("/api/team/");
         team.value = res.data;
-        console.log("team Response:", team);
+        // console.log("team Response:", team);
       } catch (error) {
         console.error("Error during request:", error);
       }
