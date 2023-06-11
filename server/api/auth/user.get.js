@@ -1,3 +1,5 @@
+import isAuthenticated from "~/server/utils/isAuthenticated";
+
 export default defineEventHandler(async (event) => {
   try {
     const { user } = await isAuthenticated(event);
