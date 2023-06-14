@@ -116,7 +116,7 @@ export default defineEventHandler(async (event) => {
           },
         });
 
-        // console.log("aliiiBBBB", addtoTeamB);
+        console.log("aliiiBBBB", addtoTeamB);
 
         const findBID = await prisma.user.findUnique({
           where: {
@@ -146,7 +146,7 @@ export default defineEventHandler(async (event) => {
             },
           });
 
-          // console.log("aliiiCCCC", addtoTeamC);
+          console.log("aliiiCCCC", addtoTeamC);
         }
 
         const findDID = await prisma.user.findUnique({
@@ -177,7 +177,7 @@ export default defineEventHandler(async (event) => {
             },
           });
 
-          // console.log("aliiiCCCC", addtoTeamD);
+          console.log("aliiiCCCC", addtoTeamD);
         }
       }
 
