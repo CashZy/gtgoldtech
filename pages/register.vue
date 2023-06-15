@@ -61,7 +61,7 @@
 
       <div class="px-5 my-3">
         <van-button
-          @click="submit"
+          @click="verifyotp"
           type="submit"
           :loading="loading"
           class="!bg-secondary !border-secondary !text-white !text-lg !font-medium !w-full"
@@ -90,6 +90,7 @@ import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import { auth } from "@/firebase";
 import { getAuth,signInWithPhoneNumber , RecaptchaVerifier } from "firebase/auth";
+import { async } from "@firebase/util";
 
 
 const formData = reactive({
@@ -126,27 +127,7 @@ const {
   stopCounter,
 } = useOtp();
 
-const submit = async () => {
-   verifyotp()
- 
-  if(forverify.value){
-    v.value.$validate();
-  if (!v.value.$error) {
-    stopCounter();
-    await register({
-      phone: "91" + formData.phone,
-      password: formData.password,
-      otp: formData.sms,
-      sessionId: sessionId.value,
-      invitation: formData.invitation,
-      balance: 0.0,
-    });
-  } else {
-    showToast("please fill form");
-  }
-  }
 
-};
 
 const handlenewotp = () => {
     if (typeof window !== 'undefined') {
@@ -167,7 +148,7 @@ const onSignInSubmit = () => {
     handlenewotp()
     // const auth = getAuth();
 
-    const phoneNumber = "+92" + formData.phone;
+    const phoneNumber = "+91" + formData.phone;
     const appVerifier = window.recaptchaVerifier;
     // console.log("00000",phoneNumber)
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -187,28 +168,40 @@ const onSignInSubmit = () => {
       });
   }
 };
-const verifyotp = () => {
+const verifyotp = async () => {
   const code = formData.sms;
-  // console.log("first" , code)
-  confirmationResult
-    .confirm(code)
-    .then((result) => {
-      // User signed in successfully.
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await confirmationResult.confirm(code);
       const user = result.user;
       console.log("verify", JSON.stringify(user));
       showToast("User Verified");
-      
-      // Set the state to true
-      forverify.value = true;
-      
-      // ...
-    })
-    .catch((error) => {
-      // User couldn't sign in (bad verification code?)
-      // ...
+
+      if (user) {
+        v.value.$validate();
+        if (!v.value.$error) {
+          stopCounter();
+          await register({
+            phone: "91" + formData.phone,
+            password: formData.password,
+            otp: formData.sms,
+            sessionId: sessionId.value,
+            invitation: formData.invitation,
+            balance: 0.0,
+          });
+        } else {
+          showToast("please fill form");
+        }
+      }
+      resolve(forverify.value);
+    } catch (error) {
       showToast("User Not Verified");
-    });
+      reject(error);
+    }
+  });
 };
+
 
 
 const handleOptp = () => {
