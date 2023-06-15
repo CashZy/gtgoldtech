@@ -4,7 +4,7 @@
       <div class="flex my-2 space-x-5">
         <van-image :src="logo" width="110px" class="shrink-0" alt="" />
         <div class="grow">
-          <h2 class="text-xl font-semibold mb-1">Crystal</h2>
+          <h2 class="text-xl font-semibold mb-1">Dole Vip</h2>
           <p class="text-[#8a8a90] text-sm mb-3">Application size：3M</p>
           <div class="flex items-center justify-end mb-1">
             <div
