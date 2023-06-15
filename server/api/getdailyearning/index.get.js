@@ -86,102 +86,102 @@ export default defineEventHandler(async (event) => {
 
           console.log(`Earnings ${updatedEarning.id} doubled.`);
         }
-      }
 
-      /*------------------- Start Transfer Daily Earning to invitents ------------*/
+        /*------------------- Start Transfer Daily Earning to invitents ------------*/
 
-      let total = Number(dailyProfitSum);
+        let total = Number(dailyProfitSum);
 
-      const invitationUser = user.invitationId;
+        const invitationUser = user.invitationId;
 
-      if (invitationUser) {
-        // const updatedBalanceC = await prisma.user.update({
-        //   where: {
-        //     id: invitationUser,
-        //     // Filter users based on the invitation code
-        //   },
-        //   data: {
-        //     balance: {
-        //       increment: new Prisma.Decimal((10 / 100) * total), // Set the balance field to the sum of existing value and new value
-        //     },
-        //   },
-        // });
-
-        let addtoTeamB = await prisma.team.create({
-          data: {
-            userId: invitationUser,
-            fromId: user.id,
-            level: "B",
-            amount: (10 / 100) * total,
-          },
-        });
-
-        console.log("aliiiBBBB", addtoTeamB);
-
-        const findBID = await prisma.user.findUnique({
-          where: {
-            id: Number(invitationUser),
-          },
-        });
-        levelBID = findBID?.invitationId;
-
-        if (levelBID) {
-          // const updatedBalanceD = await prisma.user.update({
+        if (invitationUser && total > 0) {
+          // const updatedBalanceC = await prisma.user.update({
           //   where: {
-          //     id: levelBID,
+          //     id: invitationUser,
+          //     // Filter users based on the invitation code
           //   },
           //   data: {
           //     balance: {
-          //       increment: new Prisma.Decimal((5 / 100) * total), // Set the balance field to the sum of existing value and new value
+          //       increment: new Prisma.Decimal((10 / 100) * total), // Set the balance field to the sum of existing value and new value
           //     },
           //   },
           // });
 
-          let addtoTeamC = await prisma.team.create({
+          let addtoTeamB = await prisma.team.create({
             data: {
-              userId: levelBID,
+              userId: invitationUser,
               fromId: user.id,
-              level: "C",
-              amount: (5 / 100) * total,
+              level: "B",
+              amount: (10 / 100) * total,
             },
           });
 
-          console.log("aliiiCCCC", addtoTeamC);
-        }
+          console.log("aliiiBBBB", addtoTeamB);
 
-        const findDID = await prisma.user.findUnique({
-          where: {
-            id: Number(levelBID),
-          },
-        });
-        levelDID = findDID?.invitationId;
-
-        if (levelDID) {
-          // const updatedBalanceD = await prisma.user.update({
-          //   where: {
-          //     id: levelDID,
-          //   },
-          //   data: {
-          //     balance: {
-          //       increment: new Prisma.Decimal((2 / 100) * total), // Set the balance field to the sum of existing value and new value
-          //     },
-          //   },
-          // });
-
-          let addtoTeamD = await prisma.team.create({
-            data: {
-              userId: levelDID,
-              fromId: user.id,
-              level: "D",
-              amount: (2 / 100) * total,
+          const findBID = await prisma.user.findUnique({
+            where: {
+              id: Number(invitationUser),
             },
           });
+          levelBID = findBID?.invitationId;
 
-          console.log("aliiiCCCC", addtoTeamD);
+          if (levelBID) {
+            // const updatedBalanceD = await prisma.user.update({
+            //   where: {
+            //     id: levelBID,
+            //   },
+            //   data: {
+            //     balance: {
+            //       increment: new Prisma.Decimal((5 / 100) * total), // Set the balance field to the sum of existing value and new value
+            //     },
+            //   },
+            // });
+
+            let addtoTeamC = await prisma.team.create({
+              data: {
+                userId: levelBID,
+                fromId: user.id,
+                level: "C",
+                amount: (5 / 100) * total,
+              },
+            });
+
+            console.log("aliiiCCCC", addtoTeamC);
+          }
+
+          const findDID = await prisma.user.findUnique({
+            where: {
+              id: Number(levelBID),
+            },
+          });
+          levelDID = findDID?.invitationId;
+
+          if (levelDID) {
+            // const updatedBalanceD = await prisma.user.update({
+            //   where: {
+            //     id: levelDID,
+            //   },
+            //   data: {
+            //     balance: {
+            //       increment: new Prisma.Decimal((2 / 100) * total), // Set the balance field to the sum of existing value and new value
+            //     },
+            //   },
+            // });
+
+            let addtoTeamD = await prisma.team.create({
+              data: {
+                userId: levelDID,
+                fromId: user.id,
+                level: "D",
+                amount: (2 / 100) * total,
+              },
+            });
+
+            console.log("aliiiCCCC", addtoTeamD);
+          }
         }
+
+        /*------------------- End Transfer Daily Earning to invitents ------------*/
       }
-
-      /*------------------- End Transfer Daily Earning to invitents ------------*/
     }
 
     /*------------------- End Add or update the earnings ------------*/

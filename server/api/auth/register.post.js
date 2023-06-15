@@ -49,81 +49,18 @@ export default defineEventHandler(async (event) => {
       isAdmin = true;
     }
 
-    /*................... level B ................*/
-
-    if (invitation) {
-      const allusers = await prisma.user.findMany({});
-
-      findBID = await prisma.user.findUnique({
-        where: {
-          code: invitation,
-        },
-      });
-      const levelBID = findBID?.id;
-
-      await prisma.myteam.create({
-        data: {
-          userId: allusers.length + 1,
-          invitedbyId: levelBID,
-          level: "B",
-        },
-      });
-      console.log("B  createddddd");
-
-      /*................... level B ................*/
-      /*................... level C ................*/
-
-      if (findBID?.invitationId) {
-        findCID = await prisma.user.findUnique({
-          where: {
-            id: findBID.invitationId,
-          },
-        });
-        const levelCID = findCID?.id;
-
-        await prisma.myteam.create({
-          data: {
-            userId: allusers.length + 1,
-            invitedbyId: levelCID,
-            level: "C",
-          },
-        });
-
-        console.log("C  createddddd");
-      }
-      /*................... level C ................*/
-      /*................... level D ................*/
-      if (findCID?.invitationId) {
-        findDID = await prisma.user.findUnique({
-          where: {
-            id: findCID.invitationId,
-          },
-        });
-        const levelDID = findDID?.id;
-
-        await prisma.myteam.create({
-          data: {
-            userId: allusers.length + 1,
-            invitedbyId: levelDID,
-            level: "D",
-          },
-        });
-        console.log("D  createddddd");
-      }
-    }
-
     // compare session
-    if (
-      session.id != sessionId ||
-      session?.otp.value != otp ||
-      session?.otp.phone != phone ||
-      session?.otp.time >= new Date(Date.now()).toString()
-    ) {
-      return createError({
-        statusCode: 401,
-        statusMessage: "phone verification failed",
-      });
-    }
+    // if (
+    //   session.id != sessionId ||
+    //   session?.otp.value != otp ||
+    //   session?.otp.phone != phone ||
+    //   session?.otp.time >= new Date(Date.now()).toString()
+    // ) {
+    //   return createError({
+    //     statusCode: 401,
+    //     statusMessage: "phone verification failed",
+    //   });
+    // }
 
     if (!user) {
       const salt = await bcrypt.genSalt(10);
@@ -140,6 +77,69 @@ export default defineEventHandler(async (event) => {
           totalEarning: 0.0,
         },
       });
+
+      /*................... level B ................*/
+
+      if (invitation) {
+        const allusers = await prisma.user.findMany({});
+
+        findBID = await prisma.user.findUnique({
+          where: {
+            code: invitation,
+          },
+        });
+        const levelBID = findBID?.id;
+        console.log("alllll", allusers.length);
+        await prisma.myteam.create({
+          data: {
+            userId: allusers.length,
+            invitedbyId: levelBID,
+            level: "B",
+          },
+        });
+        console.log("B  createddddd");
+
+        /*................... level B ................*/
+        /*................... level C ................*/
+
+        if (findBID?.invitationId) {
+          findCID = await prisma.user.findUnique({
+            where: {
+              id: findBID.invitationId,
+            },
+          });
+          const levelCID = findCID?.id;
+
+          await prisma.myteam.create({
+            data: {
+              userId: allusers.length,
+              invitedbyId: levelCID,
+              level: "C",
+            },
+          });
+
+          console.log("C  createddddd");
+        }
+        /*................... level C ................*/
+        /*................... level D ................*/
+        if (findCID?.invitationId) {
+          findDID = await prisma.user.findUnique({
+            where: {
+              id: findCID.invitationId,
+            },
+          });
+          const levelDID = findDID?.id;
+
+          await prisma.myteam.create({
+            data: {
+              userId: allusers.length,
+              invitedbyId: levelDID,
+              level: "D",
+            },
+          });
+          console.log("D  createddddd");
+        }
+      }
     }
 
     return {};

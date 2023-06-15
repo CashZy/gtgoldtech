@@ -43,7 +43,7 @@ const getLevelUserCount = (level) => {
 
 onMounted(async () => {
   try {
-    const response = await Axios.get("/api/team/");
+    const response = await Axios.get("/api/myteam/");
     const orders = response.data;
 
     // Filter orders to keep only one order per user
