@@ -116,7 +116,6 @@ export default defineEventHandler(async (event) => {
           },
         });
 
-        // console.log("aliiiBBBB", addtoTeamB);
 
         const findBID = await prisma.user.findUnique({
           where: {

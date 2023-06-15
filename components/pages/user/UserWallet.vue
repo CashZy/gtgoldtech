@@ -15,7 +15,7 @@
         Recharge Wallet
       </NuxtLink>
 
-      <p class="text-primary text-lg font-medium">{{ parseFloat(rechargebalace).toFixed(4) }}</p>
+      <p class="text-primary text-lg font-medium">{{ parseFloat(rechargebalace).toFixed(2) }}</p>
 
 
     </div>
@@ -29,11 +29,11 @@
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <p class="text-sm text-light">Earnings Today</p>
-      <p class="text-primary text-lg font-medium">{{ earningToday }}</p>
+      <p class="text-primary text-lg font-medium">{{ parseFloat(earningToday).toFixed(2) }}</p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <p class="text-sm text-light">Total Earning</p>
-      <p class="text-primary text-lg font-medium">{{ totalEarning }}</p>
+      <p class="text-primary text-lg font-medium">{{ parseFloat(totalEarning).toFixed(2) }}</p>
     </div>
     <div class="flex flex-col space-y-0.5 items-center justify-center">
       <p class="text-sm text-light">Team Income</p>

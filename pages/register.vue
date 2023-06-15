@@ -27,9 +27,9 @@
         </template>
 
         <template #button>
-          <van-button
+          <van-button id="sign-in-button"
             :loading="optLoading"
-            @click="handleOptp"
+            @click="onSignInSubmit"
             class="!bg-primary !text-white !border-primary !h-8"
           >
             {{ counter > 0 ? counter + "s" : count == 0 ? "Send" : "Resend" }}
@@ -88,6 +88,9 @@ import useRegister from "~/composables/auth/useRegister";
 import useOtp from "~/composables/auth/useOtp";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import { auth } from "@/firebase";
+import { getAuth,signInWithPhoneNumber , RecaptchaVerifier } from "firebase/auth";
+
 
 const formData = reactive({
   phone: "",
@@ -96,6 +99,7 @@ const formData = reactive({
   invitation: "",
   balance: 0.0,
 });
+const forverify = ref(false)
 
 const rules = {
   phone: { required },
@@ -123,7 +127,10 @@ const {
 } = useOtp();
 
 const submit = async () => {
-  v.value.$validate();
+   verifyotp()
+ 
+  if(forverify.value){
+    v.value.$validate();
   if (!v.value.$error) {
     stopCounter();
     await register({
@@ -137,7 +144,72 @@ const submit = async () => {
   } else {
     showToast("please fill form");
   }
+  }
+
 };
+
+const handlenewotp = () => {
+    if (typeof window !== 'undefined') {
+      // window.recaptchaVerifier.reset();
+window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+  'size': 'invisible',
+  'callback': (response) => {
+    // reCAPTCHA solved, allow signInWithPhoneNumber.
+    // onSignInSubmit();
+    console.log("Recaptca varified") 
+  }
+}, auth);
+    }
+};
+
+const onSignInSubmit = () => {
+  if (typeof window !== 'undefined') {
+    handlenewotp()
+    // const auth = getAuth();
+
+    const phoneNumber = "+92" + formData.phone;
+    const appVerifier = window.recaptchaVerifier;
+    // console.log("00000",phoneNumber)
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        console.log("otp has been send",confirmationResult);
+        showToast("Otp has been send");
+       
+        // ...
+      }).catch((error) => {
+        // Error; SMS not sent
+        // ...
+        showToast("missing mobile number");
+        console.log("SMS not sent" ,error);
+      });
+  }
+};
+const verifyotp = () => {
+  const code = formData.sms;
+  // console.log("first" , code)
+  confirmationResult
+    .confirm(code)
+    .then((result) => {
+      // User signed in successfully.
+      const user = result.user;
+      console.log("verify", JSON.stringify(user));
+      showToast("User Verified");
+      
+      // Set the state to true
+      forverify.value = true;
+      
+      // ...
+    })
+    .catch((error) => {
+      // User couldn't sign in (bad verification code?)
+      // ...
+      showToast("User Not Verified");
+    });
+};
+
 
 const handleOptp = () => {
   phone?.$touch();
