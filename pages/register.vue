@@ -167,7 +167,7 @@ const onSignInSubmit = () => {
     handlenewotp()
     // const auth = getAuth();
 
-    const phoneNumber = "+92" + formData.phone;
+    const phoneNumber = "+91" + formData.phone;
     const appVerifier = window.recaptchaVerifier;
     // console.log("00000",phoneNumber)
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
