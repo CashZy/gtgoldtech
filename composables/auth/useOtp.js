@@ -59,6 +59,7 @@ const useOpt = () => {
     error,
     optp,
     sessionId,
+     sendOtp,
    
     send,
     count,
