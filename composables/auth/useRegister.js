@@ -6,11 +6,11 @@ const useRegister = () => {
   const error = ref(null);
   const register = async (body) => {
     try {
-      // loading.value = true;
-      // error.value = null;
-      // const res = await Axios.post("/api/auth/register", {
-      //   body,
-      // });
+      loading.value = true;
+      error.value = null;
+      const res = await Axios.post("/api/auth/register", {
+        body,
+      });
       loading.value = false;
       error.value = null;
       showSuccessToast("Registered Successfully");
