@@ -20,7 +20,7 @@
         <h3 class="text-xl font-semibold mb-3 text-white mr-4">dolevip@ybl</h3>
         <button
           class="!bg-secondary !text-white font-semibold rounded-lg px-4 py-2"
-          @click="copyText('GTGOLD@ybl')"
+          @click="copyText('gtgold@ybl')"
         >
           Copy Address
         </button>
