@@ -51,7 +51,7 @@
         1、After downloading the Android phone, click Install<br />
         2、Click Install to return to the desktop. If the download is complete,
         click settings &gt;&gt; General &gt;&gt; Description File &gt;&gt;
-        DOLE&gt;&gt;install
+        gtgold&gt;&gt;install
       </p>
 
       <van-divider />
