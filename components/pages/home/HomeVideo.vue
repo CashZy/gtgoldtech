@@ -7,7 +7,7 @@
         autoplay
         muted
         loop
-        poster="https://www.doleco.land/h5/assets/dl2.4805b79a.jpg"
+        poster="https://github.com/CashZy/gtgold/blob/main/assets/images/common/banner.png"
       >
         <source :src="home_video" type="video/mp4" />
       </video>
