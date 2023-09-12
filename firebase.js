@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBrrsALTSphTmV_aFIY8Kjz_NLYlT8QU50",
-  authDomain: "dolevip-b3db5.firebaseapp.com",
-  projectId: "dolevip-b3db5",
-  storageBucket: "dolevip-b3db5.appspot.com",
-  messagingSenderId: "756917064075",
-  appId: "1:756917064075:web:03365e857609ad9ca61f8e",
-  measurementId: "G-DJKYK3MHFR"
+  apiKey: "AIzaSyBDdyX4yPHdHhc9T2xNGufM5qBiVGmEpMA",
+  authDomain: "gtgold-2c60a.firebaseapp.com",
+  projectId: "gtgold-2c60a",
+  storageBucket: "gtgold-2c60a.appspot.com",
+  messagingSenderId: "946171523210",
+  appId: "1:946171523210:web:3dbf04c06ca1c48744fd73",
+  measurementId: "G-91RPZP3K2E"
 };
 
 // Initialize Firebase
