@@ -95,6 +95,10 @@ const columns = [
   { text: "Indian Bank", value: "Indian Bank" },
   { text: "DCB Bank", value: "DCB Bank" },
   { text: "Punjab Bank", value: "Punjab Bank" },
+  { text: "Axis Bank", value: "Axis Bank" },
+  { text: "icici Bank", value: "icici Bank" },
+  { text: "SBI Bank", value: "SBI Bank" },
+  { text: "All Other Bank", value: "All Other Bank" },
 ];
 const onConfirm = ({ selectedOptions }) => {
   showPicker.value = false;
