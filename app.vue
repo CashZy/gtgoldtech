@@ -22,7 +22,7 @@ onBeforeMount(() => {
 });
 
 useHead({
-  title: "Dolevip",
+  title: "GTGOLD",
   meta: [{ name: "description", content: "My amazing site." }],
 });
 </script>
