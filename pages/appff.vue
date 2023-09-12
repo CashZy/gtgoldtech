@@ -130,7 +130,7 @@ import stars from "~/assets/images/pages/appff/stars.png";
 
 const downloadApp = () => {
   const downloadLink =
-    "https://drive.google.com/uc?id=1MJmjrvp8RMY6kikjH0k57TGLKN9lLF3a&export=download&confirm=t&uuid=ffe833db-2ae7-4259-8581-01d675c9c72a";
+    "https://storage.googleapis.com/appilder/app/cdcc6ffd4878d2086e2e498c124bdfb4/e373d2d624050cfaf0fed5c16bc4a406.apk?GoogleAccessId=desktopapi%40appilder-com.iam.gserviceaccount.com&Expires=1695405367&Signature=vqLiPA3zAQBwxmPH%2FOWafiRdArqqisf1IFYgRyFAs%2BWwYrAUJgBsrVoQ%2Bfd38n5bXZxXVnvqlJvN%2FEbcUhFKGIJNQcE%2BW8e1Uoos1lhIw6%2FAZz8%2Fz2caloMhGbIlkSJqtg6OPWxenmXPhY9uGP%2Fc1KqKEmLUEvCrNVskiCfcSlcro0rr%2FL0%2FkrikPx1zLU1Z88o0VUMgeiTDt%2FYcazaeLXAbsIP3xvS9E2sq5cXVwczFXe9602%2Bb4Wwj7RmovvQ8BY6ZCOY2kSq9dSUzjBaykO5BqDG3Zrl8MX%2B7AnIJ9MeA8FwnUk3MjMlot%2F5bjGVd0PDPmkV%2BLum2SulYt%2FDQBQ%3D%3D";
   window.location.href = downloadLink;
 };
 
