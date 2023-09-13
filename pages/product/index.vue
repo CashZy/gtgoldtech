@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader title="Fruit Project Area" back-route="/" />
+    <PageHeader title="Plan Project Area" back-route="/" />
     <!--    <van-tabs v-model:active="active" back-route="/">-->
     <!--      <van-tab v-for="(tab, i) in tabs" :title="tab">-->
     <div class="grid overflow-y-auto h-[84vh] grid-cols-2 gap-3 my-3 mx-3">
