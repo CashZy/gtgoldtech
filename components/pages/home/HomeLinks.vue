@@ -77,7 +77,7 @@ const links = ref([
 ]);
 
 const show = ref(false);
-const actions = [{ name: "+917830414942", disabled: true }];
+const actions = [{ name: "+917830414942", enable: true }];
 
 const onClickLink = (i) => {
   if (i == 4) {
