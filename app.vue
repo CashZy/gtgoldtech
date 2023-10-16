@@ -23,7 +23,7 @@ onBeforeMount(() => {
 
 useHead({
   title: "GTGOLD",
-  meta: [{ name: "description", content: "My amazing site." }],
+  meta: [{ name: "description", content: "My amazing inveting platform." }],
 });
 </script>
 
